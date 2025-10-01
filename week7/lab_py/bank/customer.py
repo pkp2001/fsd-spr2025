@@ -2,14 +2,16 @@ from config import DTF,NOW
 from account import Account
 
 class Customer:
-
-    def __init__(self):
-        self.name = self.read_name()
+    def __init__(self, name=None):
+        if name is not None:
+            self.name = name
+        else:
+            self.name = self.read_name()
         self.accounts = [Account("Savings"), Account("Loan")]
 
     def read_name(self):
         print("Enter Customer Name: ", end="")
-        return input()
+        return input().strip()
 
     def match(self, name):
         return self.name == name
@@ -66,7 +68,9 @@ class Customer:
         return f'{self.name}\t--> {' | '.join(map(str, self.accounts))}'
 
     def read_choice(self):
-        print("Customer menu (d/w/t/s/x): ", end="")
+        print("Customer menu:")
+        print("d = deposit, w = withdraw, t = transfer, s = show, x = exit")
+        print("Enter choice: ", end="")
         return input().strip().lower()
 
     def help(self):
